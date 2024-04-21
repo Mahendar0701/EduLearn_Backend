@@ -42,9 +42,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Create test database
+      - name: Set up PostgreSQL database for testing
+        env:
+          PGPASSWORD: ${{ secrets.PG_PASSWORD }}
         run: |
-          psql -h localhost -U ${{ secrets.PG_USER }} -c "CREATE DATABASE ${{ env.PG_TEST_DATABASE }};"
+          psql -h localhost -U ${{ secrets.PG_USER }} -c "CREATE DATABASE edulearn_test;"
 
       - name: Run tests
         run: |
