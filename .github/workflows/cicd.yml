@@ -13,9 +13,9 @@ jobs:
       postgres:
         image: postgres:11.7
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: mahi123@#
-          POSTGRES_DB: edulearn
+          POSTGRES_USER: ${{ secrets.PG_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.PG_PASSWORD }}
+          POSTGRES_DB: ${{ env.PG_DATABASE }}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -42,9 +42,34 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Create test database
+        run: |
+          psql -h localhost -U ${{ secrets.PG_USER }} -c "CREATE DATABASE ${{ env.PG_TEST_DATABASE }};"
+
       - name: Run tests
         run: |
           python manage.py test app
+
+      # Notify on Slack regardless of the outcome
+      - name: Slack Notify
+        uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status}}
+          steps: ${{toJson(steps)}}
+          channel: "#web-development"
+        if: always()
+
+      # Notify on Slack for success
+      - name: Success Notify
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Commit has been successful✅"}' ${{secrets.SLACK_WEBHOOK_URL}}
+
+      # Notify on Slack for failure
+      - name: Failure Notify
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"⚠️Error: The pipeline has failed❗"}' ${{secrets.SLACK_WEBHOOK_URL}}
 
   # deploy:
   #   name: Deploy to Production
