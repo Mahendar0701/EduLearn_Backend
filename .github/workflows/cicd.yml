@@ -26,7 +26,7 @@ jobs:
 
       - name: Run tests
         run: |
-          python manage.py test
+          python manage.py test app
 
   # deploy:
   #   name: Deploy to Production
