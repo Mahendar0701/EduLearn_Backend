@@ -48,6 +48,9 @@ jobs:
         run: |
           psql -h localhost -U ${{ secrets.PG_USER }} -c "CREATE DATABASE edulearn_test;"
 
+      - name: Install python-dotenv
+        run: pip install python-dotenv
+
       - name: Run tests
         run: |
           python manage.py test app
