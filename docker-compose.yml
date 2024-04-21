@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: edulearn
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mahi123@#
+
+  web:
+    build: .
+    command: gunicorn --bind 0.0.0.0:8000 project.wsgi:application
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
