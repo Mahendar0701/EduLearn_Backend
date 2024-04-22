@@ -56,11 +56,10 @@ jobs:
           python manage.py test app
 
       - name: Debug Environment Variables
-      run: |
-        echo "PG_DATABASE: ${{ secrets.PG_DATABASE }}"
-        echo "PG_USER: ${{ secrets.PG_USER }}"
-        echo "PG_TEST_DATABASE: ${{ secrets.PG_TEST_DATABASE }}"
-        
+        run: |
+          echo "PG_DATABASE: ${{ secrets.PG_DATABASE }}"
+          echo "PG_USER: ${{ secrets.PG_USER }}"
+          echo "PG_TEST_DATABASE: ${{ secrets.PG_TEST_DATABASE }}"
 
       # Notify on Slack regardless of the outcome
       - name: Slack Notify
