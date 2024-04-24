@@ -130,7 +130,15 @@ database_url=os.environ.get("DATABASE_URL")
 DOCKER_ENV = os.getenv('DOCKER_ENV', 'false').lower() == 'true'
 
 DATABASES = {
-    'default': dj_database_url.parse(database_url)
+    'default': dj_database_url.parse(database_url),
+    'test': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('PG_TEST_DATABASE'),
+        'USER': os.getenv('PG_USER'),
+        'PASSWORD': os.getenv('PG_PASSWORD'),
+        'HOST': 'localhost',
+        'PORT': '5432',
+    },
 }
 # DATABASES = {
 #     'default': dj_database_url.parse("postgres://edulearn_db_user:llLdgaEb2tGGDrc2aEzMCqUpfAankM84@dpg-cok9srgl5elc73c1drug-a.oregon-postgres.render.com/edulearn_db")
