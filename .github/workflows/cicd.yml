@@ -13,6 +13,7 @@ env:
   ALLOWED_HOSTS: localhost,127.0.0.1
   DEBUG: True
   SECRET_KEY: ${{secrets.SECRET_KEY}}
+  DATABASE_URL: ${{secrets.DATABASE_URL}}
 
 jobs:
   run-tests:
