@@ -11,8 +11,6 @@ env:
   PG_PASSWORD: ${{secrets.PG_PASSWORD}}
   SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
   ALLOWED_HOSTS: localhost,127.0.0.1
-  # DATABASE_URL: ${{secrets.DATABASE_URL}}
-  # DATABASE_URL: postgres://edulearn_db_user:llLdgaEb2tGGDrc2aEzMCqUpfAankM84@dpg-cok9srgl5elc73c1drug-a.oregon-postgres.render.com/edulearn_db
   DEBUG: True
   SECRET_KEY: ${{secrets.SECRET_KEY}}
 
