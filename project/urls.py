@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.urls import re_path as url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from app.views import *
 
@@ -23,4 +24,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('app.urls')),
     path('', CourseView.as_view(), name="xxx"),
-]
+] + staticfiles_urlpatterns()

@@ -13,9 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url
-
-
+import dj_database_url # type: ignore
 
 load_dotenv()
 
@@ -50,7 +48,6 @@ CORS_ALLOWED_ORIGINS = [
     'http://0.0.0.0:8000',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
-
 ]
 
 
@@ -242,6 +239,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL='media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
