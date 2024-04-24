@@ -27,6 +27,7 @@ jobs:
           POSTGRES_USER: ${{ secrets.PG_USER }}
           POSTGRES_PASSWORD: ${{ secrets.PG_PASSWORD }}
           POSTGRES_DB: edu_learn
+          DATABASE_URL: ${{secrets.DATABASE_URL}}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
