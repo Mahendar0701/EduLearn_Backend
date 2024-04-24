@@ -95,16 +95,16 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build the Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: Dockerfile
-          push: True
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/edulearn-backend:latest
+        # uses: docker/build-push-action@v4
+        # with:
+        #   context: Dockerfile
+        #   push: True
+        #   tags: ${{ secrets.DOCKERHUB_USERNAME }}/edulearn-backend:latest
 
-      #   run: docker build . --file ./Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/edulearn-backend
+        run: docker build . --file ./Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/edulearn-backend
 
-      # - name: Docker Push
-      #   run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/edulearn-backend
+      - name: Docker Push
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/edulearn-backend
 
   # Deploy to production
   deploy-to-production:
