@@ -4,15 +4,15 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /code
 
-COPY requirements.txt .
+COPY requirements.txt /code/
 
 RUN pip install -r requirements.txt
 
-COPY . .
+COPY . /code/
 
-EXPOSE 8000
+# EXPOSE 8000
 
 # CMD [ "python3","manage.py", "runserver" ]
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
+# CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
 

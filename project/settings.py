@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
+
 
 
 load_dotenv()
@@ -27,21 +29,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-nyl81lm%_ri86=j84wo1%gzqi1i+5&0k$wqxymbkb6m5ob_czv'
+# SECRET_KEY = 'django-insecure-nyl81lm%_ri86=j84wo1%gzqi1i+5&0k$wqxymbkb6m5ob_czv'
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == 'true'
 
-ALLOWED_HOSTS = []
+
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
+
 
 CORS_ALLOWED_ORIGINS = [
-    
     'http://localhost:3000',
+    'http://localhost:8000',
     'http://127.0.0.1:3000',
-    'http://0.0.0.0',
+    'http://0.0.0.0:8000',
+    'http://localhost:5173',
     'http://127.0.0.1:5173',
-    'http://localhost:5173'
+
 ]
+
 
 
 # Application definition
@@ -73,8 +84,7 @@ MIDDLEWARE = [
 # CSRF_COOKIE_SECURE = True
 # CSRF_COOKIE_SAMESITE = 'None'  # or 'Strict' depending on your requirements
 
-# REST_FRAMEWORK = {"DEFAULT_PERMISSION_CLASSES": [
-#     "rest_framework.permissions.AllowAny"]}
+
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
@@ -118,53 +128,70 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
+database_url=os.environ.get("DATABASE_URL")
+
+DOCKER_ENV = os.getenv('DOCKER_ENV', 'false').lower() == 'true'
+
+DATABASES = {
+    'default': dj_database_url.parse(database_url)
+}
+# DATABASES = {
+#     'default': dj_database_url.parse("postgres://edulearn_db_user:llLdgaEb2tGGDrc2aEzMCqUpfAankM84@dpg-cok9srgl5elc73c1drug-a.oregon-postgres.render.com/edulearn_db")
+# }
+
+# if DOCKER_ENV:
+#     # Use Docker database host
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': 'edu_learn',
+#             'USER': 'postgres',
+#             'PASSWORD': 'mahi123@#',
+#             'HOST': 'db',  # Docker database host
+#             'PORT': '5432',
+#         }
+#     }
+# else:
+#     # Use localhost database configuration
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': 'edu_learn',
+#             'USER': 'postgres',
+#             'PASSWORD': 'mahi123@#',
+#             'HOST': 'localhost',  # Local database host
+#             'PORT': '5432',
+#         }
+#     }
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'edu_learn',
-        'USER': 'postgres',
-        'PASSWORD': 'mahi123@#',
-        'HOST': 'localhost',
-        'PORT': '5432',       
-        
-    },
-    'test': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('PG_TEST_DATABASE'),
-        'USER': os.getenv('PG_USER'),
-        'PASSWORD': os.getenv('PG_PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '5432',
-    },
-    
-}
-
 # DATABASES = {
+#     # 'default': {
+#     #     'ENGINE': 'django.db.backends.sqlite3',
+#     #     'NAME': BASE_DIR / 'db.sqlite3',
+#     # }
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('PG_DATABASE'),
-#         'USER': os.getenv('PG_USER'),
-#         'PASSWORD': os.getenv('PG_PASSWORD'),
-#         'HOST': 'localhost',
-#         'PORT': '5432',
+#         'NAME': 'edu_learn',
+#         'USER': 'postgres',
+#         'PASSWORD': 'mahi123@#',
+#         'HOST': 'db',
+#         'PORT': '5432',       
+        
 #     },
 #     'test': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': os.getenv('PG_TEST_DATABASE'),
 #         'USER': os.getenv('PG_USER'),
 #         'PASSWORD': os.getenv('PG_PASSWORD'),
-#         'HOST': 'localhost',
+#         'HOST': 'db',
 #         'PORT': '5432',
 #     },
+    
 # }
+
 
 
 # Password validation
@@ -180,19 +207,6 @@ AUTHENTICATION_BACKENDS = [
 
 AUTH_USER_MODEL = 'app.AppUser'
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     ),
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.SessionAuthentication',
-#     ),
-# }
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': [],
-#     'DEFAULT_AUTHENTICATION_CLASSES': [],
-# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {

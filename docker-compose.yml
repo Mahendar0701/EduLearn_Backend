@@ -1,26 +1,27 @@
-version: "3.9"
+version: "3.4"
 
 services:
   db:
     image: postgres:latest
     volumes:
-      - pg-dev-data:/var/lib/postgresql/data
+      - edu_learn-dev-data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: edu_learn
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mahi123@#
-      PORT: 5432
 
   web:
     build: .
-    # command: gunicorn --bind 0.0.0.0:8000 project.wsgi:application
-    command: python3 manage.py runserver
+    command: sh -c "python manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+    # command: sh -c "python manage.py migrate && gunicorn --bind 0.0.0.0:8000 project.wsgi:application"
     volumes:
-      - .:/app
+      - .:/code
     ports:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      - DOCKER_ENV=true
 
 volumes:
-  pg-dev-data:
+  edu_learn-dev-data:
