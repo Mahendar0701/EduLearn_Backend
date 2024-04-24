@@ -133,10 +133,10 @@ DATABASES = {
     'default': dj_database_url.parse(database_url),
     'test': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('PG_TEST_DATABASE'),
-        'USER': os.getenv('PG_USER'),
-        'PASSWORD': os.getenv('PG_PASSWORD'),
-        'HOST': 'localhost',
+        'NAME': 'edu_learn',
+        'USER': 'postgres',
+        'PASSWORD': 'mahi123@#',
+        'HOST': 'localhost',  # Docker database host
         'PORT': '5432',
     },
 }
