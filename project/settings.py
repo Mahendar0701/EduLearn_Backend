@@ -130,15 +130,15 @@ database_url=os.environ.get("DATABASE_URL")
 DOCKER_ENV = os.getenv('DOCKER_ENV', 'false').lower() == 'true'
 
 DATABASES = {
-    'default': dj_database_url.parse(database_url)
-    # 'test': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'edu_learn',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'mahi123@#',
-    #     'HOST': 'localhost',  # Docker database host
-    #     'PORT': '5432',
-    # },
+    'default': dj_database_url.parse(database_url),
+    'test': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'edu_learn',
+        'USER': 'postgres',
+        'PASSWORD': 'mahi123@#',
+        'HOST': 'localhost',  # Docker database host
+        'PORT': '5432',
+    },
 }
 
 print("DATABASES:", DATABASES)

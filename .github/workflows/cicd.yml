@@ -95,11 +95,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build the Docker image
-        # uses: docker/build-push-action@v4
-        # with:
-        #   context: Dockerfile
-        #   push: True
-        #   tags: ${{ secrets.DOCKERHUB_USERNAME }}/edulearn-backend:latest
 
         run: docker build . --file ./Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/edulearn-backend
 

@@ -10,9 +10,9 @@ RUN pip install -r requirements.txt
 
 COPY . /code/
 
-# EXPOSE 8000
+EXPOSE 8000
 
-# CMD [ "python3","manage.py", "runserver" ]
+CMD [ "python3","manage.py", "runserver" ]
 
 # CMD ["gunicorn", "--bind", "0.0.0.0:8000", "project.wsgi:application"]
 
