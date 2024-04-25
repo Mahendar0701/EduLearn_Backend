@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url # type: ignore
+import dj_database_url 
 
 load_dotenv()
 
@@ -131,6 +131,10 @@ DOCKER_ENV = os.getenv('DOCKER_ENV', 'false').lower() == 'true'
 
 DATABASES = {
     'default': dj_database_url.parse(database_url),
+    #     # 'default': {
+#     #     'ENGINE': 'django.db.backends.sqlite3',
+#     #     'NAME': BASE_DIR / 'db.sqlite3',
+#     # }
     'test': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'edu_learn',

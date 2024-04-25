@@ -47,7 +47,7 @@ class Course(models.Model):
     num_lessons = models.IntegerField(default=0)  # Number of lessons in the course
     price = models.DecimalField(max_digits=10, decimal_places=2,null=True,blank=True)
       
-    enrolledStudents = models.IntegerField(null=True,blank=True)
+    enrolledStudents = models.IntegerField(default=0)
     rating = models.FloatField(default=0,null=True,blank=True)
     startDate = models.DateField(null=True,blank=True)
     endDate = models.DateField(null=True,blank=True)
