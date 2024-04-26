@@ -279,11 +279,11 @@ class ModuleList(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     
     def get(self, request, course_id):
-        modules = Module.objects.filter(course_id=course_id)
+        modules = Module.objects.filter(course_id=course_id).order_by("order")
         serializer = ModuleSerializer(modules, many=True)
-        course = Course.objects.get(pk=course_id)
-        course.num_modules = modules.count()
-        course.save()
+        # course = Course.objects.get(pk=course_id)
+        # course.num_modules = modules.count()
+        # course.save()
         return Response(serializer.data)
     
 
