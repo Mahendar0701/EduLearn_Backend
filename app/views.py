@@ -357,13 +357,13 @@ class LessonList(APIView):
 
         serializer = LessonSerializer(lessons, many=True)
         
-        course = Course.objects.get(pk=course_id)
-        course.num_lessons = lessons.count()
-        course.save()
+        # course = Course.objects.get(pk=course_id)
+        # course.num_lessons = lessons.count()
+        # course.save()
         
-        module = Module.objects.get(pk=module_id)
-        module.num_lessons = lessons.count()
-        module.save()
+        # module = Module.objects.get(pk=module_id)
+        # module.num_lessons = lessons.count()
+        # module.save()
         
         return Response(serializer.data)
 
