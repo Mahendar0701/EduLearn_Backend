@@ -145,7 +145,7 @@ DATABASES = {
     },
 }
 
-print("DATABASES:", DATABASES)
+# print("DATABASES:", DATABASES)
 # DATABASES = {
 #     'default': dj_database_url.parse("postgres://edulearn_db_user:llLdgaEb2tGGDrc2aEzMCqUpfAankM84@dpg-cok9srgl5elc73c1drug-a.oregon-postgres.render.com/edulearn_db")
 # }

@@ -334,7 +334,7 @@ class ModuleDetailView(APIView):
         course = get_object_or_404(Course, id=course_id)
         if course.instructorId != request.user.user_id:
             return Response({"detail": "Permission denied."}, status=status.HTTP_403_FORBIDDEN)
-        
+
         try:
             module = Module.objects.get(course_id=course_id, pk=pk)
         except Module.DoesNotExist:
@@ -342,7 +342,7 @@ class ModuleDetailView(APIView):
 
         module.delete()
         return Response({"detail": "Module deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-        
+       
 class LessonList(APIView):
     # permission_classes = [IsAuthenticatedOrReadOnly]
     permission_classes = [IsAuthenticated]
@@ -566,6 +566,9 @@ class UserCartView(APIView):
         serializer=UserCartSerializer(user_cart)
         
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    
+    # def get(self,request)
         
 
 class UserCartDetailView(APIView):

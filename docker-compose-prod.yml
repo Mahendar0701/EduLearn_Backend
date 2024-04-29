@@ -1,0 +1,33 @@
+version: "3.4"
+
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - edu_learn-prod-data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${PROD_DATABASE}
+      POSTGRES_USER: ${PROD_USERNAME}
+      POSTGRES_PASSWORD: ${PROD_PASSWORD}
+
+  web:
+    build:
+      context: .
+      target: production
+    image: edu_learn_be:production
+    command: sh -c "python manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+    # command: sh -c "python manage.py migrate && gunicorn --bind 0.0.0.0:8000 project.wsgi:application"
+
+    volumes:
+      - .:/code
+    ports:
+      - "8010:8000"
+    depends_on:
+      - db
+    environment:
+      - DOCKER_ENV=true
+
+volumes:
+  edu_learn-prod-data:
