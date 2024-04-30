@@ -9,9 +9,6 @@ COPY requirements.txt /code/
 RUN pip install django
 RUN pip install -r requirements.txt
 RUN pip install dj-database-url
-# RUN pip install django
-
-# COPY . /code/
 
 # Stage 2: Production image
 FROM base AS production
@@ -20,7 +17,6 @@ COPY . /code/
 
 WORKDIR /code
 
-# COPY --from=python-builder /code /code
 
 EXPOSE 8000
 
@@ -33,9 +29,6 @@ COPY . /code/
 
 WORKDIR /code
 
-# COPY --from=python-builder /code /code
-
-# RUN pip install -r requirements-dev.txt  # Assuming you have separate dev requirements
 
 EXPOSE 8000
 
